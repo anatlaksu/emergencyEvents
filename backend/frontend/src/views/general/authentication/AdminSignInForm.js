@@ -106,31 +106,31 @@ function AdminSignInForm() {
                   <img src={tafkidipedialogo}></img>
                 </div>
                 <div className="text-center text-muted mb-4">
-                  <small>התחברות</small>
+                  <small>התחברות חמ"ל</small>
                 </div>
                 <Form role="form" >
                   <FormGroup className="mb-3">
                     <Input onChange={handleChange('personalnumber')} placeholder="מספר אישי" type="string" value={personalnumber} />
                   </FormGroup>
-                  {/* <FormGroup>
+                  <FormGroup>
                     <Input onChange={handleChange('password')} placeholder="סיסמא" type="password" value={password} />
-                  </FormGroup>*/}
+                  </FormGroup>
                   {loading ? (
                     <>
                     </>
                   ) : (
-                    <Row>
-                      <Col>
+                    // <Row>
+                    //   <Col>
                         <div className="text-center">
                           <button onClick={clickSubmit} className="btn">התחבר</button>
                         </div>
-                      </Col>
-                      <Col>
-                        <div className="text-center">
-                          <button onClick={() => { history.push(`/signup`) }} className="btn">הרשם</button>
-                        </div>
-                      </Col>
-                    </Row>
+                    //   </Col>
+                    //   <Col>
+                    //     <div className="text-center">
+                    //       <button onClick={() => { history.push(`/signup`) }} className="btn">הרשם</button>
+                    //     </div>
+                    //   </Col>
+                    // </Row>
                   )}
                 </Form>
               </CardBody>
@@ -149,9 +149,9 @@ function AdminSignInForm() {
         <Row className="justify-content-center">
           <Col>
             {showSuccess()}
-            {showError()}
+            {/* {showError()} */}
             {signInForm()}
-            {redirectUser()}
+            {/* {redirectUser()} */}
           </Col>
         </Row>
       </Container>

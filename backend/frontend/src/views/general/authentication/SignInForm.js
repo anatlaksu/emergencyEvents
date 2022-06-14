@@ -66,39 +66,39 @@ function Signin() {
       })
   }
 
-  const redirectUser = () => {
-    if (redirectToReferrer) {
-      console.log(user);
-      if (user && user.validated == true) {
-        if (user.role === "0") {
-          history.push(`/dashboard`);
-        }
-        if (user.role === "1") {
-          history.push(`/unitdashboard/${user.unitid}`);
-        }
-        if (user.role === "2") {
-          history.push(`/candidatedashboard/${user._id}`);
-        }
-      }
-      else {
-        toast.success("משתמש לא מאושר מערכת");
-        setValues({ ...values, redirectToReferrer: false })
-      }
-    }
-  }
+  // const redirectUser = () => {
+  //   if (redirectToReferrer) {
+  //     console.log(user);
+  //     if (user && user.validated == true) {
+  //       if (user.role === "0") {
+  //         history.push(`/dashboard`);
+  //       }
+  //       if (user.role === "1") {
+  //         history.push(`/unitdashboard/${user.unitid}`);
+  //       }
+  //       if (user.role === "2") {
+  //         history.push(`/candidatedashboard/${user._id}`);
+  //       }
+  //     }
+  //     else {
+  //       toast.success("משתמש לא מאושר מערכת");
+  //       setValues({ ...values, redirectToReferrer: false })
+  //     }
+  //   }
+  // }
 
-  const showSuccess = () => (
-    <div className="alert alert-info " style={{ textAlign: 'right', display: values.successmsg ? '' : 'none' }}>
-      <h2>התחבר בהצלחה</h2>
-    </div>
-  )
-  const showError = () => (
-    <div className="alert alert-danger" style={{ textAlign: 'right', display: values.error ? '' : 'none' }}>
-      <h2>שגיאה בשליחת הטופס</h2>
-      <h2>{values.errortype}</h2>
-    </div>
+  // const showSuccess = () => (
+  //   <div className="alert alert-info " style={{ textAlign: 'right', display: values.successmsg ? '' : 'none' }}>
+  //     <h2>התחבר בהצלחה</h2>
+  //   </div>
+  // )
+  // const showError = () => (
+  //   <div className="alert alert-danger" style={{ textAlign: 'right', display: values.error ? '' : 'none' }}>
+  //     <h2>שגיאה בשליחת הטופס</h2>
+  //     <h2>{values.errortype}</h2>
+  //   </div>
 
-  )
+  // )
 
   useEffect(() => {
     passport();
@@ -123,13 +123,13 @@ function Signin() {
                 <div className="text-center text-muted mb-4">
                   <img src={tafkidipedialogo}></img>
                 </div>
-                <div className="text-center text-muted mb-4">
+                {/* <div className="text-center text-muted mb-4">
                   <small>התחברות</small>
-                </div>
+                </div> */}
                 <Form role="form" >
-                  <FormGroup className="mb-3">
+                  {/* <FormGroup className="mb-3">
                     <Input onChange={handleChange('personalnumber')} placeholder="מספר אישי" type="string" value={personalnumber} />
-                  </FormGroup>
+                  </FormGroup> */}
                   {/* <FormGroup>
                     <Input onChange={handleChange('password')} placeholder="סיסמא" type="password" value={password} />
                   </FormGroup>*/}
@@ -140,12 +140,17 @@ function Signin() {
                     <Row>
                       <Col>
                         <div className="text-center">
-                          <button onClick={clickSubmit} className="btn">התחבר</button>
+                          <button onClick={() => { history.push(`/signup`) }} className="btn">תאונת רק"מ</button>
                         </div>
                       </Col>
                       <Col>
                         <div className="text-center">
-                          <button onClick={() => { history.push(`/signup`) }} className="btn">הרשם</button>
+                          <button onClick={() => { history.push(`/signup`) }} className="btn">דיווח על אירוע חריג</button>
+                        </div>
+                      </Col>
+                      <Col>
+                        <div className="text-center">
+                          <button onClick={() => { history.push(`/adminsignin`) }} className="btn">התחברות חמ"ל</button>
                         </div>
                       </Col>
                     </Row>
@@ -153,7 +158,6 @@ function Signin() {
                 </Form>
               </CardBody>
             </Card>
-
           </Col>
         </Row>
       </Container>
@@ -166,10 +170,10 @@ function Signin() {
       <Container className="mt--8 pb-5">
         <Row className="justify-content-center">
           <Col>
-            {showSuccess()}
-            {showError()}
+            {/* {showSuccess()}
+            {showError()} */}
             {signInForm()}
-            {redirectUser()}
+            {/* {redirectUser()} */}
           </Col>
         </Row>
       </Container>

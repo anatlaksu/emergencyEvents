@@ -25,13 +25,20 @@ export default function SignUpForm() {
     name: "",
     lastname: "",
     personalnumber: "",
-    password: "",
-    role: "",
-    unitid: "",
-    migzar: "",
-    gender: "",
     cellphone: "",
-    rank: "",
+    yhida:"",
+    typevent:"",
+    datevent:"",
+    mikom:"",
+    pirot:"",
+    tahkirFile:"",
+    tahkirimg:"",
+    // password: "",
+    // role: "",
+    // unitid: "",
+    // migzar: "",
+    // gender: "",
+    // rank: "",
     error: false,
     successmsg: false,
     loading: false,
@@ -60,6 +67,8 @@ export default function SignUpForm() {
     CheckSignUpForm(event);
   };
 
+  //בדיקות
+
   const CheckSignUpForm = (event) => {
     event.preventDefault();
     var flag = true;
@@ -76,24 +85,32 @@ export default function SignUpForm() {
       flag = false;
       ErrorReason += "מס אישי ריק \n";
     }
-    if (data.password == "") {
+    if (data.yhida == "") {
       flag = false;
-      ErrorReason += "סיסמא ריקה \n";
+      ErrorReason += "יחידה ריקה \n";
     }
-    if (data.role == "") {
+    if (data.cellphone == "") {
       flag = false;
-      ErrorReason += "הרשאה ריקה \n";
-    } else {
-      if (data.role === "0") {
+      ErrorReason += "טלפון ריק \n";
+    }
+    // if (data.password == "") {
+    //   flag = false;
+    //   ErrorReason += "סיסמא ריקה \n";
+    // }
+    // if (data.role == "") {
+    //   flag = false;
+    //   ErrorReason += "הרשאה ריקה \n";
+    // } else {
+    //   if (data.role === "0") {
 
-      }
-      if (data.role === "1") {
-        if (data.unitid === "") {
-          flag = false;
-          ErrorReason += "יחידה ריקה \n";
-        }
-      }
-    }
+    //   }
+    //   if (data.role === "1") {
+    //     if (data.unitid === "") {
+    //       flag = false;
+    //       ErrorReason += "יחידה ריקה \n";
+    //     }
+    //   }
+    // }
 
     if (flag == true) {
       FixUser(event);
@@ -122,14 +139,21 @@ export default function SignUpForm() {
     const user = {
       name: data.name,
       lastname: data.lastname,
-      password: data.password,
       personalnumber: data.personalnumber,
-      unitid: data.unitid,
-      role: data.role,
-      migzar: data.migzar,
-      gender: data.gender,
       cellphone: data.cellphone,
-      rank: data.rank,
+      yhida:data.yhida,
+      typevent: data.typevent,
+      datevent: data.datevent,
+      mikom: data.mikom,
+      pirot: data.pirot,
+      tahkirFile:data.tahkirFile,
+      tahkirimg: data.tahkirimg,
+      // password: data.password,
+      // unitid: data.unitid,
+      // role: data.role,
+      // migzar: data.migzar,
+      // gender: data.gender,
+      // rank: data.rank,
     };
     axios
       .post(`http://localhost:8000/api/signup`, user)
@@ -160,7 +184,7 @@ export default function SignUpForm() {
       className="alert alert-info "
       style={{ textAlign: "right", display: data.successmsg ? "" : "none" }}
     >
-      <h2>הבקשה נשלחה למנהל המערכת</h2>
+      <h2>הדיווח נשלח בהצלחה, מספר הדיווח הינו</h2>
       <Link to="/signin">להתחברות</Link>
     </div>
   );
@@ -169,7 +193,7 @@ export default function SignUpForm() {
       className="alert alert-danger"
       style={{ textAlign: "right", display: data.error ? "" : "none" }}
     >
-      <h2>שגיאה בשליחת הטופס</h2>
+      <h2>שגיאה בשליחת הדיווח</h2>
     </div>
   );
   const showLoading = () => (
@@ -196,8 +220,11 @@ export default function SignUpForm() {
           <Col lg="5" md="7">
             <Card className="shadow border-0">
               <CardBody className="px-lg-5 py-lg-5">
+              <div className="text-center text-muted mb-4">
+                  <big>שליחת דיווח</big>
+                </div>
                 <div className="text-center text-muted mb-4">
-                  <small>הרשמה</small>
+                  <small>פרטי מדווח</small>
                 </div>
                 <Form role="form">
                   <FormGroup dir="rtl">
@@ -230,18 +257,94 @@ export default function SignUpForm() {
                     />
                   </FormGroup>
 
-                  <div style={{ textAlign: 'right', paddingTop: '10px' }}>מגזר</div>
+                  <FormGroup className="mb-3" dir="rtl">
+                    <Input
+                      placeholder="טלפון נייד"
+                      name="cellphone"
+                      type="tel"
+                      maxlength="10"
+                      value={data.cellphone}
+                      onChange={handleChange}
+                    />
+                  </FormGroup>
+
+                  <FormGroup dir="rtl">
+                    <Input
+                      placeholder="יחידה"
+                      name="yhida"
+                      type="string"
+                      value={data.yhida}
+                      onChange={handleChange}
+                    />
+                  </FormGroup>
+
+                  <div className="text-center text-muted mb-4">
+                  <small>פרטי אירוע</small>
+                  </div>
+
+                  <div style={{ textAlign: 'right', paddingTop: '10px' }}>סוג אירוע</div>
                     <FormGroup >
-                      <Input placeholder="מגזר" type="select" name="migzar" value={data.migzar} onChange={handleChange}>
+                      <Input placeholder="סוג אירוע" type="select" name="typevent" value={data.typevent} onChange={handleChange}>
                         <option value={"בחר"}>בחר</option>
-                        <option value={"מכונות"}>מכונות</option>
-                        <option value={'תו"ן'}>תו"ן</option>
-                        <option value={"חשמל"}>חשמל</option>
-                        <option value={'ורסטילי'}>ורסטילי</option>
+                        <option value={"תאונתעבודה"}>תאונת עבודה</option>
+                        <option value={'תאונתרכב'}>תאונת רכב</option>
+                        <option value={"שריפה"}>שריפה</option>
+                        <option value={'שברלחלף'}>שבר לחלף</option>
                       </Input>
                     </FormGroup>
 
-                    <div style={{ textAlign: 'right', paddingTop: '10px' }}>מין</div>
+                    <div style={{ textAlign: 'right', paddingTop: '10px' }}>תאריך אירוע</div>
+                    <FormGroup dir="rtl">
+                    <Input
+                      placeholder="תאריך אירוע"
+                      name="datevent"
+                      type="datetime-local"
+                      value={data.datevent}
+                      onChange={handleChange}
+                    />
+                  </FormGroup>
+
+                  <FormGroup dir="rtl">
+                    <Input
+                      placeholder="מיקום האירוע"
+                      name="mikom"
+                      type="string"
+                      value={data.mikom}
+                      onChange={handleChange}
+                    />
+                  </FormGroup>
+
+                  <FormGroup dir="rtl">
+                    <Input
+                      placeholder="פירוט אירוע"
+                      name="pirot"
+                      type="textarea"
+                      value={data.pirot}
+                      onChange={handleChange}
+                    />
+                  </FormGroup>
+
+                  <div style={{ textAlign: 'right', paddingTop: '10px' }}>צירוף מסמך של התחקיר</div>
+                    <input
+                      placeholder="צירוף מסמך של התחקיר"
+                      name="tahkirFile"
+                      type="file"
+                      value={data.tahkirFile}
+                      onChange={handleChange}
+                      accept=".pdf, .doc, .docx, .txt, .xls"
+                    />
+
+                  <div style={{ textAlign: 'right', paddingTop: '10px' }}>צירוף תמונות האירוע</div>
+                    <input
+                      placeholder="צירוף תמונות האירוע"
+                      name="tahkirimg"
+                      type="file"
+                      value={data.tahkirimg}
+                      onChange={handleChange}
+                      accept=".jpeg, .png"
+                    />
+
+                    {/* <div style={{ textAlign: 'right', paddingTop: '10px' }}>מין</div>
                     <FormGroup >
                       <Input placeholder='מין' type="select" name="gender" value={data.gender} onChange={handleChange}>
                         <option value={"בחר"}>בחר</option>
@@ -303,10 +406,10 @@ export default function SignUpForm() {
                         </Input>
                       </FormGroup>
                     </>
-                  ) : null}
+                  ) : null} */}
                   <div className="text-center">
                     <button onClick={clickSubmit} className="btn btn-primary">
-                      הרשם
+                      שליחה
                     </button>
                   </div>
                 </Form>
